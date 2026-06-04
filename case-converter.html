@@ -37,7 +37,6 @@
       opacity: 0.5;
     }
 
-    /* HEADER */
     header {
       position: sticky;
       top: 0;
@@ -88,12 +87,11 @@
 
     .back-btn:hover { color: var(--ink); }
 
-    /* HERO */
     .hero {
       position: relative;
       z-index: 1;
       padding: 60px 40px 40px;
-      max-width: 1100px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
@@ -134,9 +132,7 @@
     .hero h1 .highlight::after {
       content: '';
       position: absolute;
-      bottom: 4px;
-      left: 0;
-      right: 0;
+      bottom: 4px; left: 0; right: 0;
       height: 5px;
       background: var(--accent-yellow);
       z-index: -1;
@@ -150,11 +146,11 @@
       max-width: 500px;
     }
 
-    /* MAIN SECTION */
+    /* MAIN */
     .section {
       position: relative;
       z-index: 1;
-      max-width: 1100px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 0 40px 80px;
     }
@@ -165,13 +161,13 @@
       text-transform: uppercase;
       letter-spacing: 0.15em;
       color: var(--muted);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       padding-bottom: 12px;
       border-bottom: 1px solid var(--border);
     }
 
-    /* INPUT CARD */
-    .input-card {
+    /* TEXT BOX */
+    .text-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -180,25 +176,18 @@
       transition: border-color 0.2s;
     }
 
-    .input-card:focus-within {
+    .text-card:focus-within {
       border-color: var(--accent-yellow);
+      box-shadow: 0 0 0 3px rgba(245,200,66,0.15);
     }
 
     .card-header {
-      padding: 14px 20px;
+      padding: 12px 20px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       background: #fafaf8;
-    }
-
-    .card-header-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
     }
 
     .stats {
@@ -212,20 +201,31 @@
       color: var(--muted);
     }
 
-    .stat span {
+    .stat span { color: var(--ink); font-weight: 500; }
+
+    .active-case-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: var(--accent-yellow);
       color: var(--ink);
-      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 100px;
+      display: none;
     }
+
+    .active-case-badge.visible { display: inline-block; }
 
     textarea {
       width: 100%;
-      min-height: 180px;
+      min-height: 220px;
       background: transparent;
       border: none;
       outline: none;
       color: var(--ink);
       font-family: 'DM Mono', monospace;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       line-height: 1.8;
       padding: 20px;
       resize: vertical;
@@ -238,14 +238,20 @@
       border-top: 1px solid var(--border);
       background: #fafaf8;
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      display: flex;
+      gap: 8px;
     }
 
     .clear-btn {
       font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       background: none;
       border: 1px solid var(--border);
       color: var(--muted);
@@ -257,24 +263,45 @@
 
     .clear-btn:hover { border-color: var(--accent-red); color: var(--accent-red); }
 
-    /* CASE BUTTONS GRID */
+    .copy-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      padding: 6px 16px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .copy-btn:hover { background: #333; }
+    .copy-btn.copied { background: #16a34a; }
+
+    /* CASE BUTTONS */
+    .section-label { margin-top: 0; }
+
     .cases-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
       gap: 10px;
-      margin-bottom: 16px;
     }
 
     .case-btn {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 18px 20px;
+      padding: 16px 18px;
       cursor: pointer;
       text-align: left;
-      transition: all 0.2s;
+      transition: all 0.18s;
       position: relative;
       overflow: hidden;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeUp 0.4s ease forwards;
     }
 
     .case-btn::after {
@@ -288,146 +315,44 @@
       transition: transform 0.25s ease;
     }
 
-    .case-btn:hover {
-      border-color: var(--accent-yellow);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.07);
-    }
-
+    .case-btn:hover { border-color: var(--accent-yellow); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.07); }
     .case-btn:hover::after { transform: scaleX(1); }
-
-    .case-btn.active {
-      border-color: var(--accent-yellow);
-      background: #fffbee;
-    }
-
+    .case-btn.active { border-color: var(--accent-yellow); background: #fffbee; }
     .case-btn.active::after { transform: scaleX(1); }
 
     .btn-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       letter-spacing: 0.05em;
       color: var(--ink);
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .btn-preview {
       font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       color: var(--muted);
     }
 
-    /* OUTPUT CARD */
-    .output-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .output-text {
-      padding: 20px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      color: var(--ink);
-      min-height: 100px;
-      word-break: break-word;
-      white-space: pre-wrap;
-    }
-
-    .output-text.empty {
-      color: #c5c0b5;
-    }
-
-    .output-text.empty::before {
-      content: 'Your converted text will appear here…';
-    }
-
-    .copy-btn {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      background: var(--ink);
-      color: var(--bg);
-      border: none;
-      padding: 8px 18px;
-      border-radius: 100px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .copy-btn:hover { background: #333; }
-    .copy-btn.copied { background: #16a34a; }
-
-    /* INFO SECTION */
-    .info-section {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px 80px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 12px;
-    }
-
-    .info-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-    }
-
-    .info-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.05em;
-      color: var(--ink);
-      margin-bottom: 6px;
-    }
-
-    .info-card p {
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* FOOTER */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 28px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-    }
-
-    .footer-note {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .case-btn:nth-child(1)  { animation-delay: 0.03s; }
+    .case-btn:nth-child(2)  { animation-delay: 0.06s; }
+    .case-btn:nth-child(3)  { animation-delay: 0.09s; }
+    .case-btn:nth-child(4)  { animation-delay: 0.12s; }
+    .case-btn:nth-child(5)  { animation-delay: 0.15s; }
+    .case-btn:nth-child(6)  { animation-delay: 0.18s; }
+    .case-btn:nth-child(7)  { animation-delay: 0.21s; }
+    .case-btn:nth-child(8)  { animation-delay: 0.24s; }
+    .case-btn:nth-child(9)  { animation-delay: 0.27s; }
+    .case-btn:nth-child(10) { animation-delay: 0.30s; }
+    .case-btn:nth-child(11) { animation-delay: 0.33s; }
+    .case-btn:nth-child(12) { animation-delay: 0.36s; }
 
     /* TOAST */
     .toast {
       position: fixed;
-      bottom: 28px;
-      right: 28px;
+      bottom: 28px; right: 28px;
       background: var(--ink);
       color: var(--bg);
       font-family: 'DM Mono', monospace;
@@ -444,31 +369,22 @@
 
     .toast.show { transform: translateY(0); opacity: 1; }
 
-    /* FADE IN ANIMATION */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(16px);
-      animation: fadeUp 0.4s ease forwards;
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-    .fade-in:nth-child(1) { animation-delay: 0.05s; }
-    .fade-in:nth-child(2) { animation-delay: 0.1s; }
-    .fade-in:nth-child(3) { animation-delay: 0.15s; }
-    .fade-in:nth-child(4) { animation-delay: 0.2s; }
-    .fade-in:nth-child(5) { animation-delay: 0.25s; }
-    .fade-in:nth-child(6) { animation-delay: 0.3s; }
-    .fade-in:nth-child(7) { animation-delay: 0.35s; }
-    .fade-in:nth-child(8) { animation-delay: 0.4s; }
-    .fade-in:nth-child(9) { animation-delay: 0.45s; }
-    .fade-in:nth-child(10) { animation-delay: 0.5s; }
-    .fade-in:nth-child(11) { animation-delay: 0.55s; }
-    .fade-in:nth-child(12) { animation-delay: 0.6s; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.06em; color: var(--muted); }
+    .footer-note { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.08em; }
 
     @media (max-width: 600px) {
       header { padding: 0 20px; }
-      .hero, .section, .info-section { padding-left: 20px; padding-right: 20px; }
+      .hero, .section { padding-left: 20px; padding-right: 20px; }
       .cases-grid { grid-template-columns: 1fr 1fr; }
       footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
     }
@@ -484,70 +400,45 @@
 <section class="hero">
   <div class="hero-eyebrow">Text Tool</div>
   <h1><span class="highlight">Case</span><br>Converter.</h1>
-  <p class="hero-desc">Paste your text, pick a case — done. 12 formats supported, works instantly in your browser.</p>
+  <p class="hero-desc">Type your text, click any case button — text changes instantly right in the box.</p>
 </section>
 
 <div class="section">
-  <div class="section-label">// your text</div>
+  <div class="section-label" style="margin-bottom:16px;">// your text</div>
 
-  <div class="input-card">
+  <div class="text-card">
     <div class="card-header">
-      <span class="card-header-label">Input</span>
       <div class="stats">
         <div class="stat">chars <span id="charCount">0</span></div>
         <div class="stat">words <span id="wordCount">0</span></div>
         <div class="stat">lines <span id="lineCount">0</span></div>
       </div>
+      <span class="active-case-badge" id="activeBadge">—</span>
     </div>
-    <textarea id="inputText" placeholder="Type or paste your text here…"></textarea>
+    <textarea id="mainText" placeholder="Type or paste your text here, then click a case button below…"></textarea>
     <div class="card-footer">
-      <button class="clear-btn" id="clearBtn">✕ Clear</button>
+      <div class="footer-left">
+        <button class="clear-btn" id="clearBtn">✕ Clear</button>
+      </div>
+      <button class="copy-btn" id="copyBtn">Copy</button>
     </div>
   </div>
 
-  <div class="section-label" style="margin-top: 32px;">// pick a case</div>
+  <div class="section-label" style="margin-top:32px; margin-bottom:16px;">// pick a case — text will change instantly</div>
 
   <div class="cases-grid">
-    <button class="case-btn fade-in" data-case="sentence"><span class="btn-name">Sentence case</span><span class="btn-preview">This is sentence case.</span></button>
-    <button class="case-btn fade-in" data-case="lower"><span class="btn-name">lower case</span><span class="btn-preview">this is lower case.</span></button>
-    <button class="case-btn fade-in" data-case="upper"><span class="btn-name">UPPER CASE</span><span class="btn-preview">THIS IS UPPER CASE.</span></button>
-    <button class="case-btn fade-in" data-case="capitalized"><span class="btn-name">Capitalized Case</span><span class="btn-preview">This Is Capitalized Case.</span></button>
-    <button class="case-btn fade-in" data-case="alternating"><span class="btn-name">aLtErNaTiNg</span><span class="btn-preview">tHiS Is aLtErNaTiNg.</span></button>
-    <button class="case-btn fade-in" data-case="title"><span class="btn-name">Title Case</span><span class="btn-preview">This Is a Title Case.</span></button>
-    <button class="case-btn fade-in" data-case="inverse"><span class="btn-name">iNVERSE cASE</span><span class="btn-preview">tHIS iS iNVERSE cASE.</span></button>
-    <button class="case-btn fade-in" data-case="camel"><span class="btn-name">camelCase</span><span class="btn-preview">thisIsCamelCase</span></button>
-    <button class="case-btn fade-in" data-case="pascal"><span class="btn-name">PascalCase</span><span class="btn-preview">ThisIsPascalCase</span></button>
-    <button class="case-btn fade-in" data-case="snake"><span class="btn-name">snake_case</span><span class="btn-preview">this_is_snake_case</span></button>
-    <button class="case-btn fade-in" data-case="kebab"><span class="btn-name">kebab-case</span><span class="btn-preview">this-is-kebab-case</span></button>
-    <button class="case-btn fade-in" data-case="constant"><span class="btn-name">CONSTANT_CASE</span><span class="btn-preview">THIS_IS_CONSTANT_CASE</span></button>
-  </div>
-
-  <div class="section-label" style="margin-top: 32px;">// output</div>
-
-  <div class="output-card">
-    <div class="card-header">
-      <span class="card-header-label" id="activeLabel">Select a case above</span>
-      <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
-    </div>
-    <div class="output-text empty" id="outputBox"></div>
-  </div>
-</div>
-
-<div class="info-section">
-  <div class="section-label">// all 12 cases explained</div>
-  <div class="info-grid">
-    <div class="info-card"><h3>Sentence case</h3><p>Capitalizes the first letter of each sentence. Great for fixing accidental caps-lock text.</p></div>
-    <div class="info-card"><h3>lower case</h3><p>Converts every letter to lowercase. Useful for normalizing input or casual writing styles.</p></div>
-    <div class="info-card"><h3>UPPER CASE</h3><p>Makes all letters capitals. Perfect for headings, shouts, and acronyms.</p></div>
-    <div class="info-card"><h3>Capitalized Case</h3><p>First letter of every word is capitalized. Common for names and titles.</p></div>
-    <div class="info-card"><h3>aLtErNaTiNg cAsE</h3><p>Alternates between lower and upper on each character. Fun mocking-spongebob vibes.</p></div>
-    <div class="info-card"><h3>Title Case</h3><p>Capitalizes important words, skipping articles and prepositions. Ideal for article headlines.</p></div>
-    <div class="info-card"><h3>iNVERSE cASE</h3><p>Flips the case of every letter — uppercase becomes lowercase and vice versa.</p></div>
-    <div class="info-card"><h3>camelCase</h3><p>No spaces, each word starts with a capital except the first. Standard in JavaScript variables.</p></div>
-    <div class="info-card"><h3>PascalCase</h3><p>Like camelCase but the first word is also capitalized. Used for class names in most languages.</p></div>
-    <div class="info-card"><h3>snake_case</h3><p>Words joined by underscores in lowercase. Popular in Python and database column names.</p></div>
-    <div class="info-card"><h3>kebab-case</h3><p>Words joined by hyphens in lowercase. Standard for URLs, CSS class names, and file names.</p></div>
-    <div class="info-card"><h3>CONSTANT_CASE</h3><p>All caps with underscores. Used for constants and environment variables in most languages.</p></div>
+    <button class="case-btn" data-case="sentence"><span class="btn-name">Sentence case</span><span class="btn-preview">This is sentence case.</span></button>
+    <button class="case-btn" data-case="lower"><span class="btn-name">lower case</span><span class="btn-preview">this is lower case.</span></button>
+    <button class="case-btn" data-case="upper"><span class="btn-name">UPPER CASE</span><span class="btn-preview">THIS IS UPPER CASE.</span></button>
+    <button class="case-btn" data-case="capitalized"><span class="btn-name">Capitalized Case</span><span class="btn-preview">This Is Capitalized.</span></button>
+    <button class="case-btn" data-case="alternating"><span class="btn-name">aLtErNaTiNg</span><span class="btn-preview">tHiS Is aLtErNaTiNg.</span></button>
+    <button class="case-btn" data-case="title"><span class="btn-name">Title Case</span><span class="btn-preview">This Is a Title.</span></button>
+    <button class="case-btn" data-case="inverse"><span class="btn-name">iNVERSE cASE</span><span class="btn-preview">tHIS iS iNVERSE.</span></button>
+    <button class="case-btn" data-case="camel"><span class="btn-name">camelCase</span><span class="btn-preview">thisIsCamelCase</span></button>
+    <button class="case-btn" data-case="pascal"><span class="btn-name">PascalCase</span><span class="btn-preview">ThisIsPascalCase</span></button>
+    <button class="case-btn" data-case="snake"><span class="btn-name">snake_case</span><span class="btn-preview">this_is_snake_case</span></button>
+    <button class="case-btn" data-case="kebab"><span class="btn-name">kebab-case</span><span class="btn-preview">this-is-kebab-case</span></button>
+    <button class="case-btn" data-case="constant"><span class="btn-name">CONSTANT_CASE</span><span class="btn-preview">THIS_IS_CONSTANT</span></button>
   </div>
 </div>
 
@@ -562,93 +453,89 @@
   var MINORS = {'a':1,'an':1,'the':1,'and':1,'but':1,'or':1,'nor':1,'for':1,'so':1,'yet':1,'at':1,'by':1,'in':1,'of':1,'on':1,'to':1,'up':1,'as':1,'is':1,'it':1};
 
   var converters = {
-    sentence: function(t) { return t.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, function(c){ return c.toUpperCase(); }); },
-    lower: function(t) { return t.toLowerCase(); },
-    upper: function(t) { return t.toUpperCase(); },
-    capitalized: function(t) { return t.toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); }); },
-    alternating: function(t) { return t.split('').map(function(c,i){ return i%2===0 ? c.toLowerCase() : c.toUpperCase(); }).join(''); },
-    title: function(t) {
-      var words = t.toLowerCase().split(' ');
-      return words.map(function(w, i) {
-        if (i === 0 || i === words.length - 1 || !MINORS[w]) return w.replace(/^\w/, function(c){ return c.toUpperCase(); });
-        return w;
-      }).join(' ');
+    sentence:   function(t){ return t.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g,function(c){return c.toUpperCase();}); },
+    lower:      function(t){ return t.toLowerCase(); },
+    upper:      function(t){ return t.toUpperCase(); },
+    capitalized:function(t){ return t.toLowerCase().replace(/\b\w/g,function(c){return c.toUpperCase();}); },
+    alternating:function(t){ return t.split('').map(function(c,i){return i%2===0?c.toLowerCase():c.toUpperCase();}).join(''); },
+    title:      function(t){
+      var w=t.toLowerCase().split(' ');
+      return w.map(function(x,i){return(i===0||i===w.length-1||!MINORS[x])?x.replace(/^\w/,function(c){return c.toUpperCase();}):x;}).join(' ');
     },
-    inverse: function(t) { return t.split('').map(function(c){ return c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase(); }).join(''); },
-    camel: function(t) { return t.trim().split(/[\s_\-]+/).map(function(w,i){ return i===0 ? w.toLowerCase() : w.charAt(0).toUpperCase()+w.slice(1).toLowerCase(); }).join(''); },
-    pascal: function(t) { return t.trim().split(/[\s_\-]+/).map(function(w){ return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase(); }).join(''); },
-    snake: function(t) { return t.trim().replace(/[\s\-]+/g,'_').replace(/([a-z])([A-Z])/g,'$1_$2').toLowerCase(); },
-    kebab: function(t) { return t.trim().replace(/[\s_]+/g,'-').replace(/([a-z])([A-Z])/g,'$1-$2').toLowerCase(); },
-    constant: function(t) { return t.trim().replace(/[\s\-]+/g,'_').replace(/([a-z])([A-Z])/g,'$1_$2').toUpperCase(); }
+    inverse:    function(t){ return t.split('').map(function(c){return c===c.toUpperCase()?c.toLowerCase():c.toUpperCase();}).join(''); },
+    camel:      function(t){ return t.trim().split(/[\s_\-]+/).map(function(w,i){return i===0?w.toLowerCase():w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();}).join(''); },
+    pascal:     function(t){ return t.trim().split(/[\s_\-]+/).map(function(w){return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();}).join(''); },
+    snake:      function(t){ return t.trim().replace(/[\s\-]+/g,'_').replace(/([a-z])([A-Z])/g,'$1_$2').toLowerCase(); },
+    kebab:      function(t){ return t.trim().replace(/[\s_]+/g,'-').replace(/([a-z])([A-Z])/g,'$1-$2').toLowerCase(); },
+    constant:   function(t){ return t.trim().replace(/[\s\-]+/g,'_').replace(/([a-z])([A-Z])/g,'$1_$2').toUpperCase(); }
   };
 
   var caseLabels = {
     sentence:'Sentence Case', lower:'lower case', upper:'UPPER CASE',
-    capitalized:'Capitalized Case', alternating:'aLtErNaTiNg cAsE', title:'Title Case',
+    capitalized:'Capitalized Case', alternating:'aLtErNaTiNg', title:'Title Case',
     inverse:'iNVERSE cASE', camel:'camelCase', pascal:'PascalCase',
     snake:'snake_case', kebab:'kebab-case', constant:'CONSTANT_CASE'
   };
 
-  var currentCase = null;
+  var textarea = document.getElementById('mainText');
 
   function updateStats() {
-    var text = document.getElementById('inputText').value;
-    document.getElementById('charCount').textContent = text.length;
-    document.getElementById('wordCount').textContent = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
-    document.getElementById('lineCount').textContent = text === '' ? 0 : text.split('\n').length;
+    var t = textarea.value;
+    document.getElementById('charCount').textContent = t.length;
+    document.getElementById('wordCount').textContent = t.trim()==='' ? 0 : t.trim().split(/\s+/).length;
+    document.getElementById('lineCount').textContent = t==='' ? 0 : t.split('\n').length;
   }
 
   function applyCase(type) {
-    currentCase = type;
-    document.querySelectorAll('.case-btn').forEach(function(b) { b.classList.remove('active'); });
+    var val = textarea.value;
+    if (val.trim() === '') return;
+    // remember cursor
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    var converted = converters[type](val);
+    textarea.value = converted;
+    // restore cursor roughly
+    textarea.selectionStart = start;
+    textarea.selectionEnd = end;
+    updateStats();
+    // active button
+    document.querySelectorAll('.case-btn').forEach(function(b){ b.classList.remove('active'); });
     document.querySelector('[data-case="' + type + '"]').classList.add('active');
-    var input = document.getElementById('inputText').value;
-    var outputBox = document.getElementById('outputBox');
-    if (input.trim() === '') {
-      outputBox.textContent = '';
-      outputBox.classList.add('empty');
-    } else {
-      outputBox.textContent = converters[type](input);
-      outputBox.classList.remove('empty');
-    }
-    document.getElementById('activeLabel').textContent = caseLabels[type];
+    // badge
+    var badge = document.getElementById('activeBadge');
+    badge.textContent = caseLabels[type];
+    badge.classList.add('visible');
   }
 
-  document.getElementById('inputText').addEventListener('input', function() {
-    updateStats();
-    if (currentCase) applyCase(currentCase);
-  });
+  textarea.addEventListener('input', updateStats);
 
-  document.querySelectorAll('.case-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
+  document.querySelectorAll('.case-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
       applyCase(this.getAttribute('data-case'));
     });
   });
 
-  document.getElementById('clearBtn').addEventListener('click', function() {
-    document.getElementById('inputText').value = '';
-    var outputBox = document.getElementById('outputBox');
-    outputBox.textContent = '';
-    outputBox.classList.add('empty');
-    document.getElementById('activeLabel').textContent = 'Select a case above';
-    document.querySelectorAll('.case-btn').forEach(function(b) { b.classList.remove('active'); });
-    currentCase = null;
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    textarea.value = '';
     updateStats();
+    document.querySelectorAll('.case-btn').forEach(function(b){ b.classList.remove('active'); });
+    var badge = document.getElementById('activeBadge');
+    badge.classList.remove('visible');
+    textarea.focus();
   });
 
-  document.getElementById('copyBtn').addEventListener('click', function() {
-    var text = document.getElementById('outputBox').textContent;
-    if (!text || document.getElementById('outputBox').classList.contains('empty')) return;
-    navigator.clipboard.writeText(text).then(function() {
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var text = textarea.value;
+    if (!text.trim()) return;
+    navigator.clipboard.writeText(text).then(function(){
       var btn = document.getElementById('copyBtn');
       btn.textContent = '✓ Copied!';
       btn.classList.add('copied');
-      var toast = document.getElementById('toast');
-      toast.classList.add('show');
-      setTimeout(function() {
-        btn.textContent = 'Copy to Clipboard';
+      document.getElementById('toast').classList.add('show');
+      setTimeout(function(){
+        btn.textContent = 'Copy';
         btn.classList.remove('copied');
-        toast.classList.remove('show');
+        document.getElementById('toast').classList.remove('show');
       }, 2000);
     });
   });
