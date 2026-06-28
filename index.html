@@ -1,455 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-T3D77CTK');</script>
-<!-- End Google Tag Manager -->
-  
-  <meta name="google-site-verification" content="uPBXESkUHXzVoviIpj-02gGFajZcIvqFQEaA4mSwY8A" />
-  
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ToolBox – Free Online Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #f5f2eb;
-      --ink: #1a1a1a;
-      --muted: #888;
-      --border: #d8d3c8;
-      --card: #ffffff;
-      --accent-yellow: #f5c842;
-      --accent-red: #e84040;
-      --accent-blue: #2563eb;
-      --accent-green: #16a34a;
-      --accent-purple: #7c3aed;
-      --radius: 16px;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* noise texture overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
-    }
-
-    /* HEADER */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(245,242,235,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.9rem;
-      letter-spacing: 0.06em;
-      color: var(--ink);
-      line-height: 1;
-    }
-
-    .logo sup {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.5rem;
-      background: var(--accent-yellow);
-      color: var(--ink);
-      padding: 2px 6px;
-      border-radius: 4px;
-      vertical-align: super;
-      letter-spacing: 0.05em;
-      font-weight: 500;
-    }
-
-    .header-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* HERO */
-    .hero {
-      position: relative;
-      z-index: 1;
-      padding: 80px 40px 60px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .hero-eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      width: 30px;
-      height: 1px;
-      background: var(--muted);
-    }
-
-    .hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 10vw, 8rem);
-      line-height: 0.95;
-      letter-spacing: 0.02em;
-      color: var(--ink);
-      margin-bottom: 24px;
-    }
-
-    .hero h1 .highlight {
-      color: var(--accent-red);
-      position: relative;
-      display: inline-block;
-    }
-
-    .hero h1 .highlight::after {
-      content: '';
-      position: absolute;
-      bottom: 4px;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: var(--accent-yellow);
-      z-index: -1;
-      transform: skewX(-3deg);
-    }
-
-    .hero-desc {
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 480px;
-      line-height: 1.7;
-    }
-
-    /* TOOLS COUNT BADGE */
-    .tools-count {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      background: var(--ink);
-      color: var(--bg);
-      padding: 8px 16px;
-      border-radius: 100px;
-      margin-top: 28px;
-    }
-
-    .tools-count .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--accent-yellow);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    /* GRID */
-    .section {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 40px 100px;
-    }
-
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 16px;
-    }
-
-    /* TOOL CARD */
-    .tool-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      text-decoration: none;
-      color: var(--ink);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tool-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--card-accent, var(--accent-yellow));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-      border-color: transparent;
-    }
-
-    .tool-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-    }
-
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      background: var(--icon-bg, #f5f2eb);
-    }
-
-    .card-arrow {
-      font-size: 1.1rem;
-      color: var(--muted);
-      transition: transform 0.2s, color 0.2s;
-    }
-
-    .tool-card:hover .card-arrow {
-      transform: translate(3px, -3px);
-      color: var(--ink);
-    }
-
-    .card-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      letter-spacing: 0.04em;
-      line-height: 1;
-    }
-
-    .card-desc {
-      font-size: 0.83rem;
-      color: var(--muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .card-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 4px 10px;
-      border-radius: 100px;
-      background: var(--tag-bg, #f5f2eb);
-      color: var(--muted);
-      align-self: flex-start;
-    }
-
-    /* COMING SOON CARD */
-    .tool-card.coming-soon {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    .tool-card.coming-soon .card-tag {
-      background: var(--ink);
-      color: var(--bg);
-    }
-
-    /* FOOTER */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 28px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-    }
-
-    .footer-note {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-    }
-
-    /* ANIMATIONS */
-    .tool-card {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.5s ease forwards;
-    }
-
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .tool-card:nth-child(1) { animation-delay: 0.05s; }
-    .tool-card:nth-child(2) { animation-delay: 0.1s; }
-    .tool-card:nth-child(3) { animation-delay: 0.15s; }
-    .tool-card:nth-child(4) { animation-delay: 0.2s; }
-    .tool-card:nth-child(5) { animation-delay: 0.25s; }
-    .tool-card:nth-child(6) { animation-delay: 0.3s; }
-
-    @media (max-width: 600px) {
-      header { padding: 0 20px; }
-      .hero { padding: 50px 20px 40px; }
-      .section { padding: 0 20px 60px; }
-      .tools-grid { grid-template-columns: 1fr; }
-      footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToolBox – Free Online Tools</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
-  <div class="logo">ToolBox <sup>FREE</sup></div>
-  <div class="header-tag">// free online tools</div>
+  <div class="brand">ToolBox <span style="color:var(--accent)">FREE</span></div>
+  <span class="section-comment" style="margin:0;">free online tools</span>
 </header>
 
-<section class="hero">
-  <div class="hero-eyebrow">Online Utilities</div>
-  <h1>Simple<br><span class="highlight">Free</span><br>Tools.</h1>
-  <p class="hero-desc">A collection of handy tools to make your everyday tasks faster — no sign up, no cost, no nonsense.</p>
-  <div class="tools-count">
-    <span class="dot"></span>
-    3 tools available · more coming soon
-  </div>
-</section>
+<div class="hero">
+  <span class="tag-label">Online Utilities</span>
+  <h1>Simple. Free. Tools.</h1>
+  <p>A collection of handy tools to make your everyday tasks faster — no sign up, no cost, no nonsense.</p>
+  <p style="margin-top:10px;font-family:var(--mono);font-size:0.78rem;">6 tools available · more coming soon</p>
+</div>
 
-<div class="section">
-  <div class="section-label">// all tools</div>
+<div class="container">
+  <div class="section-comment">all tools</div>
   <div class="tools-grid">
 
-    <a href="case-converter.html" class="tool-card" style="--card-accent:#f5c842; --icon-bg:#fef9e7;">
-      <div class="card-top">
-        <div class="card-icon">🔡</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-name">Case Converter</div>
-      <div class="card-desc">Convert any text to UPPER CASE, lower case, Title Case, camelCase, snake_case and 8 more formats instantly.</div>
-      <span class="card-tag" style="background:#fef9e7; color:#b45309;">Text Tool</span>
+    <a class="tool-card" href="case-converter.html">
+      <div class="icon">🔡</div>
+      <h3>Case Converter</h3>
+      <p>Convert any text to UPPER CASE, lower case, Title Case, camelCase, snake_case and more formats instantly.</p>
+      <span class="badge">Text Tool</span>
     </a>
 
-    <a href="attendance-calculator.html" class="tool-card" style="--card-accent:#2563eb; --icon-bg:#eff6ff;">
-      <div class="card-top">
-        <div class="card-icon">📊</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-name">Attendance Calculator</div>
-      <div class="card-desc">Calculate your attendance percentage, find how many classes you can miss, or how many you need to attend to reach your goal.</div>
-      <span class="card-tag" style="background:#eff6ff; color:#1d4ed8;">Calculator</span>
+    <a class="tool-card" href="attendance-calculator.html">
+      <div class="icon">📊</div>
+      <h3>Attendance Calculator</h3>
+      <p>Calculate your attendance percentage, find how many classes you can miss, or how many you need to reach your goal.</p>
+      <span class="badge">Calculator</span>
     </a>
 
-    <a href="m4a-to-mp3.html" class="tool-card" style="--card-accent:#16a34a; --icon-bg:#f0fdf4;">
-      <div class="card-top">
-        <div class="card-icon">🎵</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-name">M4A to MP3</div>
-      <div class="card-desc">Convert M4A audio files to MP3 format directly in your browser. No upload to server, 100% private and free.</div>
-      <span class="card-tag" style="background:#f0fdf4; color:#15803d;">Audio Tool</span>
+    <a class="tool-card" href="m4a-to-mp3.html">
+      <div class="icon">🎵</div>
+      <h3>M4A to MP3</h3>
+      <p>Convert M4A audio files to MP3 format directly in your browser. No upload to server, 100% private and free.</p>
+      <span class="badge">Audio Tool</span>
     </a>
 
-    <div class="tool-card coming-soon" style="--card-accent:#7c3aed; --icon-bg:#f5f3ff;">
-      <div class="card-top">
-        <div class="card-icon">🖼️</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-name">Image Converter</div>
-      <div class="card-desc">Convert images between JPG, PNG, WebP and more formats directly in your browser.</div>
-      <span class="card-tag">Coming Soon</span>
-    </div>
+    <a class="tool-card" href="image-converter.html">
+      <div class="icon">🖼️</div>
+      <h3>Image Converter</h3>
+      <p>Convert images between JPG, PNG and WebP formats directly in your browser. Nothing leaves your device.</p>
+      <span class="badge">Image Tool</span>
+    </a>
 
-    <div class="tool-card coming-soon" style="--card-accent:#e84040; --icon-bg:#fef2f2;">
-      <div class="card-top">
-        <div class="card-icon">📝</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-name">Word Counter</div>
-      <div class="card-desc">Count words, characters, sentences and reading time for any text.</div>
-      <span class="card-tag">Coming Soon</span>
-    </div>
+    <a class="tool-card" href="word-counter.html">
+      <div class="icon">📝</div>
+      <h3>Word Counter</h3>
+      <p>Count words, characters, sentences and reading time for any text, instantly as you type.</p>
+      <span class="badge">Text Tool</span>
+    </a>
 
-    <div class="tool-card coming-soon" style="--card-accent:#0891b2; --icon-bg:#ecfeff;">
-      <div class="card-top">
-        <div class="card-icon">🔗</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-name">URL Encoder</div>
-      <div class="card-desc">Encode and decode URLs quickly for use in links, APIs and web development.</div>
-      <span class="card-tag">Coming Soon</span>
-    </div>
+    <a class="tool-card" href="url-encoder.html">
+      <div class="icon">🔗</div>
+      <h3>URL Encoder</h3>
+      <p>Encode and decode URLs quickly for use in links, APIs and web development.</p>
+      <span class="badge">Dev Tool</span>
+    </a>
 
   </div>
 </div>
 
-<footer>
-  <div class="footer-logo">ToolBox</div>
-  <div class="footer-note">Free · No signup · No tracking</div>
-</footer>
-
+<footer>ToolBox<br>Free · No signup · No tracking</footer>
 </body>
 </html>
