@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Generator – Omni Web Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>Omni Web Tools</a>
+  <a class="back-link" href="index.html">← All Tools</a>
+</header>
+
+<div class="hero">
+  <span class="tag">Utility Tool</span>
+  <h1>QR Code Generator.</h1>
+  <p>Turn any text, link, or message into a scannable QR code instantly — generated locally in your browser.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="section-label">enter content</div>
+    <textarea id="inputText" placeholder="Type a URL, text, phone number, or any message..." style="min-height:100px;"></textarea>
+    <div class="field-row">
+      <div class="field">
+        <label>QR Code Size</label>
+        <select id="sizeSelect">
+          <option value="200">Small (200px)</option>
+          <option value="300" selected>Medium (300px)</option>
+          <option value="400">Large (400px)</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="generateQR()">Generate QR Code</button>
+      <button class="btn ghost" onclick="clearQR()">✕ Clear</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px; text-align:center;" id="qrCard" style="display:none;">
+    <div class="section-label">your qr code</div>
+    <div id="qrcodeContainer" style="display:flex;justify-content:center;padding:20px;background:#fff;border-radius:12px;"></div>
+    <div class="btn-row" style="justify-content:center;" id="downloadRow"></div>
+  </div>
+
+  <!-- ===== INFORMATIONAL CONTENT (~850 words) ===== -->
+  <hr class="divider">
+
+  <div class="content-block">
+    <h2>What Is a QR Code?</h2>
+    <p>A QR code (short for "Quick Response" code) is a type of two-dimensional barcode that stores information in a grid of black and white squares, readable by any smartphone camera or dedicated scanner. Unlike a traditional barcode, which only stores a short string of numbers read in a single direction, a QR code can hold significantly more data — including full URLs, plain text, contact details, or even Wi-Fi credentials — and can be read instantly from almost any angle.</p>
+    <p>This tool generates QR codes entirely inside your browser. Whatever text or link you type in gets converted directly into a QR code image on your screen, with no server involved in creating it and nothing about your content ever transmitted anywhere.</p>
+
+    <h3 class="sub">How a QR Code Actually Works</h3>
+    <p>Underneath the visual pattern, a QR code encodes data using a specific error-correction algorithm that allows it to remain readable even if part of the code is damaged, dirty, or obscured — which is why you'll often see a logo placed in the middle of a QR code without breaking its functionality. The pattern of squares represents the underlying data in binary form, and a scanning app or camera decodes that pattern back into the original text or link almost instantly.</p>
+    <p>Three of the four corners of a standard QR code contain a small square pattern that helps scanning software quickly detect the code's position and orientation, even if the photo is taken at an angle or the code itself is rotated.</p>
+
+    <h3 class="sub">Common Uses for QR Codes</h3>
+    <p>Restaurants use QR codes on tables to link directly to a digital menu, skipping printed menus entirely. Businesses print QR codes on packaging, flyers, and posters to send customers straight to a website, social media page, or promotional offer without anyone having to type a URL by hand. Event organizers use QR codes on tickets for fast, contactless check-in scanning. Many Wi-Fi routers display a QR code that, when scanned, automatically connects a phone to the network without manually typing a password. Contactless payment systems frequently use QR codes to initiate a transaction by scanning a code displayed at checkout. Even something as simple as sharing a long, hard-to-type URL becomes much easier with a QR code that someone can scan instead.</p>
+
+    <h3 class="sub">Choosing the Right Content to Encode</h3>
+    <p>QR codes work well with relatively short pieces of information — a URL, a short message, a phone number, or a few lines of text. While QR codes can technically store a few thousand characters, longer content makes the resulting code visually denser and harder for some cameras to scan reliably, especially from a distance or at a small printed size. If you're linking to something with a long URL, consider using a link-shortening service first, since a shorter URL produces a simpler, easier-to-scan QR code.</p>
+
+    <h3 class="sub">Choosing a Size</h3>
+    <p>The size you choose should depend on how the QR code will be used. A smaller size works fine for digital use, like sharing the QR code image directly in a chat or email, where the recipient can zoom in on their screen if needed. A larger size is generally better for anything that will be printed, especially if it will be viewed or scanned from more than a foot or two away, since a larger printed code is easier for a camera to focus on and decode correctly.</p>
+
+    <h3 class="sub">How to Use This Tool</h3>
+    <p>Type or paste the text, link, or message you want to encode into the box. Choose a size that fits how you plan to use the code — smaller for digital sharing, larger for printing. Click "Generate QR Code," and the code will appear instantly below. From there, you can right-click (or long-press on mobile) to save the image, or use the download button provided to save it directly to your device.</p>
+    <p>If you need to make a change, just edit the text and click "Generate QR Code" again — the existing code will be replaced with a new one reflecting your updated content.</p>
+
+    <h3 class="sub">A Note on Privacy</h3>
+    <p>Because the QR code is generated entirely within your browser using local code libraries, the text or link you enter is never transmitted to any external server in order to create the code. This makes the tool suitable even for QR codes containing sensitive or private information, like an internal document link or personal contact details intended only for a specific audience.</p>
+  </div>
+
+  <div class="content-block">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Do QR codes expire?</h3>
+        <p>No, a standard QR code like the ones generated here never expires — it will always decode back to the exact text or link it was created from, for as long as the image itself exists.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I put a QR code on printed materials like flyers or business cards?</h3>
+        <p>Yes. For print, it's best to use a larger size and test-scan the printed version before mass-printing, to make sure it scans reliably at the final printed size.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is there a limit to how much text I can put in a QR code?</h3>
+        <p>QR codes can technically hold a few thousand characters, but shorter content produces a simpler, more reliably scannable code. For long content, consider a shortened link instead.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does this tool track who scans my QR code?</h3>
+        <p>No. This tool simply encodes your content into an image. It doesn't add any tracking or analytics layer — the QR code links directly to whatever content you entered.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Omni Web Tools<br>Free · No signup · No tracking</footer>
+
+<script>
+  let qrInstance = null;
+
+  function generateQR(){
+    const text = document.getElementById('inputText').value.trim();
+    const size = parseInt(document.getElementById('sizeSelect').value);
+    const container = document.getElementById('qrcodeContainer');
+
+    if (!text) {
+      container.innerHTML = '<p style="color:var(--muted);font-family:var(--mono);font-size:0.85rem;padding:40px;">Please enter some text or a link first.</p>';
+      document.getElementById('downloadRow').innerHTML = '';
+      return;
+    }
+
+    container.innerHTML = '';
+    qrInstance = new QRCode(container, {
+      text: text,
+      width: size,
+      height: size,
+      colorDark: '#241f18',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    setTimeout(() => {
+      const img = container.querySelector('img') || container.querySelector('canvas');
+      if (img) {
+        let dataUrl;
+        if (img.tagName === 'CANVAS') dataUrl = img.toDataURL('image/png');
+        else dataUrl = img.src;
+        document.getElementById('downloadRow').innerHTML =
+          `<a class="btn ghost" href="${dataUrl}" download="qr-code.png">⬇ Download PNG</a>`;
+      }
+    }, 200);
+  }
+
+  function clearQR(){
+    document.getElementById('inputText').value = '';
+    document.getElementById('qrcodeContainer').innerHTML = '';
+    document.getElementById('downloadRow').innerHTML = '';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Encoder – Omni Web Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>Omni Web Tools</a>
+  <a class="back-link" href="index.html">← All Tools</a>
+</header>
+
+<div class="hero">
+  <span class="tag">Dev Tool</span>
+  <h1>URL Encoder.</h1>
+  <p>Encode or decode text for safe use in URLs, query strings, and API calls.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="section-label">input</div>
+    <textarea id="inputText" placeholder="Type or paste text or a URL here..."></textarea>
+    <div class="btn-row">
+      <button class="btn" onclick="encode()">Encode →</button>
+      <button class="btn" onclick="decode()">Decode →</button>
+      <button class="btn ghost" onclick="clearAll()">✕ Clear</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="section-label">output</div>
+    <textarea id="outputText" placeholder="Result will appear here..." readonly></textarea>
+    <div class="btn-row">
+      <button class="btn ghost" onclick="copyOutput()">Copy Output</button>
+    </div>
+  </div>
+
+  <!-- ===== INFORMATIONAL CONTENT (~850 words) ===== -->
+  <hr class="divider">
+
+  <div class="content-block">
+    <h2>What Is URL Encoding?</h2>
+    <p>A URL can technically only contain a limited set of characters safely — letters, numbers, and a small handful of symbols. Everything else, including spaces, ampersands, question marks, hash symbols, and most non-English characters, has to be converted into a special encoded format before it can be safely included in a web address. This process is called URL encoding, or sometimes percent-encoding, because every special character gets replaced with a percent sign followed by two characters representing its code.</p>
+    <p>For example, a space becomes <code>%20</code>, and an ampersand becomes <code>%26</code>. Without this conversion, a URL containing these characters either breaks entirely or gets misinterpreted — a stray ampersand, for instance, could be mistaken for the separator between two different query parameters, silently corrupting the data being sent.</p>
+    <p>URL decoding is simply the reverse process: taking an encoded string full of percent signs and converting it back into normal, human-readable text.</p>
+
+    <h3 class="sub">Why URLs Have These Restrictions</h3>
+    <p>The rules governing what characters a URL can contain go back to early internet standards (specifically RFC 3986) that were designed to keep URLs unambiguous across every system, browser, and server that might need to read them. Certain characters are reserved because they have special meaning within a URL's structure — the question mark separates the path from the query string, the ampersand separates individual query parameters, and the hash symbol marks a fragment identifier within a page. If these characters appeared unencoded inside actual data values, there would be no reliable way to tell whether a particular character was structural or just part of the content.</p>
+    <p>Spaces are a simpler case — URLs were never designed to contain literal spaces at all, partly because spaces are invisible and easy to lose or duplicate when a URL gets copied, pasted, or printed.</p>
+
+    <h3 class="sub">Where This Actually Comes Up</h3>
+    <p>If you've ever searched something on Google and looked at the address bar afterward, you've already seen URL encoding in action — your search terms get converted into a long string full of plus signs and percent codes. Developers run into URL encoding constantly when building search functionality, constructing links that pass data between pages, or working with APIs that expect parameters to be properly encoded in the request URL. Anyone building a "share this page" button that needs to include a pre-filled message also needs to encode that message correctly, or the resulting link will break or truncate unexpectedly.</p>
+    <p>It also matters outside of pure web development. If you're embedding a link that contains special characters — say, sharing a Google Maps link with a business name containing an ampersand, or a YouTube link with a timestamp parameter — encoding ensures the link behaves consistently no matter where it's pasted or clicked.</p>
+
+    <h3 class="sub">What Gets Changed During Encoding</h3>
+    <p>Encoding leaves letters, numbers, and a small set of characters (like hyphens, underscores, periods, and tildes) untouched, since these are already considered safe in a URL. Everything else gets converted to its percent-encoded equivalent. Spaces become <code>%20</code> (or sometimes a plus sign, depending on context), forward slashes become <code>%2F</code>, ampersands become <code>%26</code>, and so on. Non-English characters, like accented letters or non-Latin scripts, get converted into a multi-byte UTF-8 representation, which is why a single accented character can sometimes expand into several percent-encoded groups.</p>
+
+    <h3 class="sub">How to Use This Tool</h3>
+    <p>To encode something, paste your text or partial URL into the input box and click "Encode." The output box will instantly show the safely encoded version, ready to be inserted into a larger URL or query string. To decode an encoded string back into readable text, paste it into the same input box and click "Decode" instead. Click "Copy Output" to copy the result straight to your clipboard for pasting wherever you need it.</p>
+    <p>If you try to decode text that contains an invalid encoded sequence — for example, a stray percent sign not followed by two valid hexadecimal characters — the tool will let you know the input couldn't be decoded rather than producing garbled or incorrect output.</p>
+
+    <h3 class="sub">A Note on Privacy and Reliability</h3>
+    <p>This tool uses your browser's own built-in encoding and decoding functions (the same ones used internally by every modern browser), so the results are standards-accurate and consistent with how browsers themselves handle URLs. Everything happens locally — no text is ever transmitted anywhere — which makes it safe to use even with sensitive query parameters, internal links, or anything else you wouldn't want passing through an external server.</p>
+  </div>
+
+  <div class="content-block">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>What does %20 mean?</h3>
+        <p>It's the encoded version of a space character. The percent sign followed by two characters represents the hexadecimal code of the original character.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is my text stored anywhere?</h3>
+        <p>No. Encoding and decoding both happen instantly in your browser. Nothing is sent to a server.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What happens if I try to decode normal, unencoded text?</h3>
+        <p>If there's nothing to decode, the output will simply look the same as the input, since there are no percent-encoded sequences to convert.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why does decoding sometimes fail?</h3>
+        <p>This usually happens if the text contains a percent sign that isn't followed by a valid two-character hexadecimal code, which makes it impossible to determine the original character.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Omni Web Tools<br>Free · No signup · No tracking</footer>
+<div class="toast" id="copyToast">✓ Copied to clipboard</div>
+
+<script>
+  function encode(){
+    const input = document.getElementById('inputText').value;
+    try {
+      document.getElementById('outputText').value = encodeURIComponent(input);
+    } catch(e) {
+      document.getElementById('outputText').value = 'Error encoding text.';
+    }
+  }
+
+  function decode(){
+    const input = document.getElementById('inputText').value;
+    try {
+      document.getElementById('outputText').value = decodeURIComponent(input);
+    } catch(e) {
+      document.getElementById('outputText').value = 'Error: invalid encoded text.';
+    }
+  }
+
+  function clearAll(){
+    document.getElementById('inputText').value = '';
+    document.getElementById('outputText').value = '';
+  }
+
+  function copyOutput(){
+    const out = document.getElementById('outputText').value;
+    if(!out) return;
+    navigator.clipboard.writeText(out).then(() => {
+      const toast = document.getElementById('copyToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+  }
+</script>
+</body>
+</html>

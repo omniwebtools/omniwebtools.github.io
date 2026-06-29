@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Converter – Omni Web Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>Omni Web Tools</a>
+  <a class="back-link" href="index.html">← All Tools</a>
+</header>
+
+<div class="hero">
+  <span class="tag">Text Tool</span>
+  <h1>Case Converter.</h1>
+  <p>Type your text, click any case button — text changes instantly right in the box.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="section-label">your text</div>
+    <textarea id="inputText" placeholder="Type or paste your text here..."></textarea>
+    <div class="stats-row">
+      <span>chars <b id="charCount">0</b></span>
+      <span>words <b id="wordCount">0</b></span>
+      <span>lines <b id="lineCount">0</b></span>
+    </div>
+    <div class="btn-row">
+      <button class="btn ghost" onclick="clearText()">✕ Clear</button>
+      <button class="btn" onclick="copyText()">Copy</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">pick a case — text will change instantly</div>
+    <div class="cases-grid" id="casesGrid"></div>
+  </div>
+
+  <!-- ===== INFORMATIONAL CONTENT (~900 words) ===== -->
+  <hr class="divider">
+
+  <div class="content-block">
+    <h2>What Is a Text Case Converter?</h2>
+    <p>A text case converter is a small but genuinely useful tool that changes the capitalization of your text without you having to retype a single letter. You paste in a sentence, a paragraph, or even several pages of content, click one button, and the entire thing transforms into the case style you need — UPPERCASE, lowercase, Title Case, camelCase, and several others.</p>
+    <p>It sounds like a minor convenience until you actually need it. Maybe you wrote an entire email with Caps Lock accidentally turned on. Maybe you're a developer who copied a label from a design file and now needs it as a JavaScript variable name. Maybe you're formatting a list of blog post titles and want them to follow proper Title Case rules instead of guessing which words to capitalize. In all of these situations, doing it by hand is slow and easy to get wrong — a case converter does it correctly in under a second.</p>
+    <p>This tool runs entirely inside your web browser. There is no server processing your text, no account required, and nothing is stored or logged. The moment you close or refresh the page, your text is gone, exactly as if you'd never typed it anywhere but a private notebook.</p>
+
+    <h3 class="sub">Why Capitalization Actually Matters</h3>
+    <p>Capitalization isn't just about looking neat. It carries real meaning. ALL CAPS TEXT is often read as shouting or urgency, which is great for a warning label but terrible for a casual message. Sentence case is what we use in everyday writing because it's the easiest for the human eye to read quickly. Title Case is the standard for headlines, book titles, and movie names because style guides have agreed on specific rules for which words get capitalized and which don't. And in programming, case style isn't a preference at all — it's often a strict requirement enforced by the programming language or the team's coding standards.</p>
+    <p>Getting the case right, in other words, isn't just cosmetic. It affects readability, professionalism, and in code, whether something even works.</p>
+
+    <h3 class="sub">Understanding Each Case Style</h3>
+    <p><strong>Sentence case</strong> capitalizes only the first letter of each sentence, just like normal writing. <strong>lower case</strong> converts every letter to lowercase, which is often used in coding, usernames, and minimalist design. <strong>UPPER CASE</strong> does the opposite, capitalizing every letter — ideal for headings, banners, and anything meant to grab attention. <strong>Capitalized Case</strong> capitalizes the first letter of every word, including small connector words, which is useful when you want a uniform, formal look across a heading.</p>
+    <p><strong>aLtErNaTiNg cAsE</strong> flips between lowercase and uppercase letter by letter, commonly used for a sarcastic or joking tone online. <strong>Title Case</strong> follows the actual rules publishers use for titles — small words like "a," "the," "of," and "and" stay lowercase unless they begin the title, while every other word is capitalized. <strong>iNVERSE cASE</strong> simply flips whatever capitalization already exists, turning uppercase letters lowercase and vice versa.</p>
+    <p>For developers, three styles matter most. <strong>camelCase</strong> removes spaces and capitalizes every word except the first, producing names like <code>userFullName</code> — the standard in JavaScript, Java, and Swift. <strong>PascalCase</strong> is nearly identical but also capitalizes the first word, producing <code>UserFullName</code>, commonly used for class and component names. <strong>snake_case</strong> replaces spaces with underscores and keeps everything lowercase, the standard convention in Python and most database column names. <strong>kebab-case</strong> replaces spaces with hyphens, used almost universally in URLs, CSS class names, and file names. <strong>CONSTANT_CASE</strong> is snake_case but fully uppercase, traditionally used for constants that should never change during a program's execution.</p>
+
+    <h3 class="sub">Who This Tool Is Built For</h3>
+    <p>Writers and bloggers use it to format article titles correctly without memorizing every Title Case rule. Developers use it to quickly rename variables or convert labels between naming conventions when moving data between systems that expect different formats. Students use it to fix essays accidentally typed in all caps, or to format headings for assignments. Social media users use the playful styles like alternating case to make posts and comments stand out. Office workers use it to clean up email subject lines, slide titles, and report headings so everything looks consistent. Designers use it to preview how a heading will look in different case styles before committing to one in their design file.</p>
+
+    <h3 class="sub">How to Use This Tool</h3>
+    <p>Using it takes three simple steps. First, paste or type your text into the box at the top of the page — there's no limit on length, and the tool updates a live word, character, and line count as you type. Second, click any of the case buttons below the text box; the conversion happens instantly, right inside the same text box, so you can immediately see and edit the result. Third, click "Copy" to copy the converted text straight to your clipboard, ready to paste anywhere you need it.</p>
+    <p>If you want to try a different case afterward, just click another button — there's no need to undo or retype anything, since each click works on whatever text is currently in the box.</p>
+
+    <h3 class="sub">A Note on Privacy</h3>
+    <p>Because everything happens locally in your browser using standard JavaScript text functions, none of your text is ever transmitted over the internet. This makes the tool safe to use even for sensitive documents, internal notes, or anything you wouldn't want passing through a third-party server. It also means the tool works instantly with no loading delay, since there's no network request involved in the conversion itself.</p>
+  </div>
+
+  <div class="content-block">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Is this tool completely free?</h3>
+        <p>Yes. There's no cost, no account, and no limit on how much text you can convert.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does it save or store my text anywhere?</h3>
+        <p>No. Everything happens in your browser. Your text is never sent to a server or saved after you leave the page.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What's the real difference between camelCase and PascalCase?</h3>
+        <p>camelCase starts with a lowercase letter (thisIsCamelCase) while PascalCase starts with an uppercase letter (ThisIsPascalCase). Both remove spaces between words.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I convert very long text, like an entire article?</h3>
+        <p>Yes, there's no practical length limit since the conversion happens instantly using your browser's own processing power.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Omni Web Tools<br>Free · No signup · No tracking</footer>
+<div class="toast" id="copyToast">✓ Copied to clipboard</div>
+
+<script>
+  const cases = [
+    { id:'sentence', name:'Sentence case', example:'This is sentence case.',
+      fn: t => t.replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase()).replace(/\bi\b/g,'I') },
+    { id:'lower', name:'lower case', example:'this is lower case.', fn: t => t.toLowerCase() },
+    { id:'upper', name:'UPPER CASE', example:'THIS IS UPPER CASE.', fn: t => t.toUpperCase() },
+    { id:'capitalized', name:'Capitalized Case', example:'This Is Capitalized.',
+      fn: t => t.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) },
+    { id:'alternating', name:'aLtErNaTiNg', example:'tHiS Is aLtErNaTiNg.',
+      fn: t => t.split('').map((c,i) => i%2===0 ? c.toLowerCase() : c.toUpperCase()).join('') },
+    { id:'title', name:'Title Case', example:'This Is a Title.',
+      fn: t => {
+        const minor = new Set(['a','an','the','and','but','or','nor','for','so','yet','at','by','in','of','on','to','up','as','is','it','be','vs']);
+        return t.toLowerCase().split(' ').map((w,i) => (!i || !minor.has(w)) ? w.charAt(0).toUpperCase()+w.slice(1) : w).join(' ');
+      }
+    },
+    { id:'inverse', name:'iNVERSE cASE', example:'tHIS iS iNVERSE.',
+      fn: t => t.split('').map(c => c===c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('') },
+    { id:'camel', name:'camelCase', example:'thisIsCamelCase',
+      fn: t => t.trim().split(/[\s_\-]+/).map((w,i) => i===0 ? w.toLowerCase() : w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join('') },
+    { id:'pascal', name:'PascalCase', example:'ThisIsPascalCase',
+      fn: t => t.trim().split(/[\s_\-]+/).map(w => w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join('') },
+    { id:'snake', name:'snake_case', example:'this_is_snake_case',
+      fn: t => t.trim().toLowerCase().replace(/[\s\-]+/g,'_').replace(/[^a-z0-9_]/g,'') },
+    { id:'kebab', name:'kebab-case', example:'this-is-kebab-case',
+      fn: t => t.trim().toLowerCase().replace(/[\s_]+/g,'-').replace(/[^a-z0-9\-]/g,'') },
+    { id:'constant', name:'CONSTANT_CASE', example:'THIS_IS_CONSTANT',
+      fn: t => t.trim().toUpperCase().replace(/[\s\-]+/g,'_').replace(/[^A-Z0-9_]/g,'') },
+  ];
+
+  const grid = document.getElementById('casesGrid');
+  let activeCase = null;
+
+  cases.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'case-btn'; btn.id = 'btn-'+c.id;
+    btn.innerHTML = `<span class="cb-label">${c.name}</span><span class="cb-example">${c.example}</span>`;
+    btn.addEventListener('click', () => applyCase(c));
+    grid.appendChild(btn);
+  });
+
+  const inputText = document.getElementById('inputText');
+  inputText.addEventListener('input', updateStats);
+
+  function updateStats(){
+    const t = inputText.value;
+    document.getElementById('charCount').textContent = t.length;
+    document.getElementById('wordCount').textContent = t.trim()==='' ? 0 : t.trim().split(/\s+/).length;
+    document.getElementById('lineCount').textContent = t==='' ? 0 : t.split('\n').length;
+  }
+
+  function applyCase(c){
+    if(!inputText.value) return;
+    inputText.value = c.fn(inputText.value);
+    updateStats();
+    if(activeCase) document.getElementById('btn-'+activeCase)?.classList.remove('active');
+    activeCase = c.id;
+    document.getElementById('btn-'+c.id).classList.add('active');
+  }
+
+  function copyText(){
+    if(!inputText.value) return;
+    navigator.clipboard.writeText(inputText.value).then(() => {
+      const toast = document.getElementById('copyToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+  }
+
+  function clearText(){
+    inputText.value=''; updateStats();
+    if(activeCase) document.getElementById('btn-'+activeCase)?.classList.remove('active');
+    activeCase = null;
+  }
+</script>
+</body>
+</html>

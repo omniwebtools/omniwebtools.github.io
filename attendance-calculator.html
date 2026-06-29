@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance Calculator – Omni Web Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>Omni Web Tools</a>
+  <a class="back-link" href="index.html">← All Tools</a>
+</header>
+
+<div class="hero">
+  <span class="tag">Calculator</span>
+  <h1>Attendance Calculator.</h1>
+  <p>Find your current attendance percentage, how many classes you can safely miss, or how many you need to attend to hit your target.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="section-label">your numbers</div>
+    <div class="field-row">
+      <div class="field">
+        <label>Classes Held</label>
+        <input type="number" id="held" min="0" value="0">
+      </div>
+      <div class="field">
+        <label>Classes Attended</label>
+        <input type="number" id="attended" min="0" value="0">
+      </div>
+      <div class="field">
+        <label>Required Attendance (%)</label>
+        <input type="number" id="required" min="0" max="100" value="75">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Classes Remaining in Term (optional)</label>
+        <input type="number" id="remaining" min="0" value="0">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="calculate()">Calculate</button>
+    </div>
+    <div id="resultArea"></div>
+  </div>
+
+  <!-- ===== INFORMATIONAL CONTENT (~850 words) ===== -->
+  <hr class="divider">
+
+  <div class="content-block">
+    <h2>What Is an Attendance Calculator?</h2>
+    <p>An attendance calculator does one job, but it's a job that genuinely matters to a lot of students: it tells you exactly where you stand against your school or college's minimum attendance requirement, and what you need to do about it. Most institutions set a minimum percentage of classes you must attend — commonly 75%, though it varies — and falling below it can mean losing exam eligibility, being marked as a "detained" student, or facing other academic penalties.</p>
+    <p>The math behind this isn't complicated, but it's also not the kind of thing most students want to redo by hand every week. This tool takes your numbers — classes held, classes attended, and your required percentage — and instantly tells you your current standing, plus a clear next step: either how many more classes you can afford to skip, or how many you need to attend in a row to climb back to safety.</p>
+
+    <h3 class="sub">Why Attendance Requirements Exist</h3>
+    <p>Attendance policies exist because regular class participation is strongly linked to better understanding of course material, especially in subjects that build on each previous lesson. Institutions also use attendance as a practical signal of whether a student is engaged enough with a course to be ready for its final exam. In many university systems, attendance percentage directly determines exam eligibility — fall below the threshold, and you may be barred from sitting the exam regardless of how well you'd otherwise perform.</p>
+    <p>This creates real stakes around a number that's easy to lose track of, especially across a long term with dozens of lectures, labs, and tutorials, sometimes spread across multiple subjects each with their own attendance record.</p>
+
+    <h3 class="sub">How the Calculation Works</h3>
+    <p>Your current attendance percentage is simply classes attended divided by classes held, multiplied by 100. If you've attended 60 out of 80 classes held so far, that's 75% — right at a typical threshold.</p>
+    <p>If you're below your required percentage, the calculator works out exactly how many classes in a row you'd need to attend (assuming no more are missed) to bring your average back up to the required level. The math accounts for the fact that every additional class held also raises the total denominator, so the answer is rarely as simple as a flat number — it requires solving for the point where attended-classes-so-far plus future classes attended divided by total classes held equals your target percentage.</p>
+    <p>If you're already above the requirement, the calculator instead tells you the maximum number of classes you could miss in a row going forward while still staying at or above your target. This is useful for deciding whether it's safe to skip a class for a valid reason without putting your eligibility at risk.</p>
+    <p>If you also enter how many classes remain in the term, the tool gives you one more figure: the best possible attendance percentage you could still reach if you attended every single one of the remaining classes. This is a useful reality check — if even attending everything left wouldn't get you back above the requirement, it's important to know that early rather than near the end of the term.</p>
+
+    <h3 class="sub">Common Attendance Thresholds</h3>
+    <p>While 75% is one of the most widely used minimums, especially in many university systems, the actual number varies a lot by institution, country, and even by individual course or professor. Some schools set the bar at 80% or even 90% for certain subjects, particularly lab-based or clinical courses where hands-on practice is considered essential. Others allow a small buffer of excused absences (for documented illness, for example) that don't count against the percentage at all. Always check your specific institution's policy, since this tool calculates based on whatever percentage you enter — it doesn't assume any particular school's rule.</p>
+
+    <h3 class="sub">Tips for Staying Above the Requirement</h3>
+    <p>Checking your attendance percentage early and often, rather than only near exam time, gives you much more room to fix a problem before it becomes serious. If you know in advance you'll need to miss several classes — for a medical procedure, a family event, or a competition — running the numbers ahead of time can help you decide whether to front-load extra attendance beforehand to build a buffer. It's also worth remembering that the "classes you can miss" number shifts every time a new class is held, even one you do attend, since the total denominator keeps growing — so it's worth rechecking the calculation periodically rather than relying on a number you calculated weeks ago.</p>
+  </div>
+
+  <div class="content-block">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>What is a typical attendance requirement?</h3>
+        <p>It varies by institution, but 75% is one of the most common minimums used by schools and colleges.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why do I need to enter "classes remaining"?</h3>
+        <p>This is optional — it helps the calculator tell you the best possible final attendance you could still reach if you attended every remaining class.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is my data saved anywhere?</h3>
+        <p>No. All calculations happen instantly in your browser. Nothing is sent to a server.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why does the "classes I can miss" number change after I attend a class?</h3>
+        <p>Because every class held adds to the total, even ones you attend. The percentage shifts slightly with each new class, so it's worth recalculating regularly rather than relying on an old number.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Omni Web Tools<br>Free · No signup · No tracking</footer>
+
+<script>
+function calculate(){
+  const held = parseInt(document.getElementById('held').value) || 0;
+  const attended = parseInt(document.getElementById('attended').value) || 0;
+  const required = parseFloat(document.getElementById('required').value) || 75;
+  const remaining = parseInt(document.getElementById('remaining').value) || 0;
+
+  const area = document.getElementById('resultArea');
+
+  if (held <= 0) {
+    area.innerHTML = `<div class="result-box error"><div class="label">Notice</div><div style="font-family:var(--mono);font-size:0.85rem;">Please enter the number of classes held.</div></div>`;
+    return;
+  }
+  if (attended > held) {
+    area.innerHTML = `<div class="result-box error"><div class="label">Notice</div><div style="font-family:var(--mono);font-size:0.85rem;">Classes attended can't be more than classes held.</div></div>`;
+    return;
+  }
+
+  const currentPct = (attended / held) * 100;
+  let html = `<div class="result-box">
+    <div class="label">Current Attendance</div>
+    <div class="big">${currentPct.toFixed(2)}%</div>
+  </div>`;
+
+  if (currentPct >= required) {
+    const maxMissable = Math.floor((attended * 100 / required) - held);
+    html += `<div class="result-box" style="margin-top:14px;">
+      <div class="label">You're Above the ${required}% Requirement</div>
+      <div style="font-family:var(--mono);font-size:0.95rem;margin-top:6px;">
+        You can miss up to <b style="color:var(--accent);font-size:1.2rem;">${maxMissable > 0 ? maxMissable : 0}</b> more class${maxMissable===1?'':'es'} in a row and still stay at or above ${required}%.
+      </div>
+    </div>`;
+  } else {
+    const r = required / 100;
+    let needed = 0;
+    if (r < 1) {
+      needed = Math.ceil((r * held - attended) / (1 - r));
+      if (needed < 0) needed = 0;
+    }
+    html += `<div class="result-box error" style="margin-top:14px;">
+      <div class="label">You're Below the ${required}% Requirement</div>
+      <div style="font-family:var(--mono);font-size:0.95rem;margin-top:6px;">
+        You need to attend the next <b style="font-size:1.2rem;">${needed}</b> class${needed===1?'':'es'} in a row to reach ${required}%.
+      </div>
+    </div>`;
+  }
+
+  if (remaining > 0) {
+    const futureHeld = held + remaining;
+    const maxPossiblePct = ((attended + remaining) / futureHeld) * 100;
+    html += `<div class="result-box" style="margin-top:14px;">
+      <div class="label">If You Attend All ${remaining} Remaining Classes</div>
+      <div style="font-family:var(--mono);font-size:0.95rem;margin-top:6px;">
+        Your best possible final attendance would be <b style="color:var(--accent);">${maxPossiblePct.toFixed(2)}%</b>.
+      </div>
+    </div>`;
+  }
+
+  area.innerHTML = html;
+}
+</script>
+</body>
+</html>

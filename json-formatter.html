@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON Formatter – Omni Web Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>Omni Web Tools</a>
+  <a class="back-link" href="index.html">← All Tools</a>
+</header>
+
+<div class="hero">
+  <span class="tag">Dev Tool</span>
+  <h1>JSON Formatter.</h1>
+  <p>Format, validate, and beautify messy JSON data with one click — all processed locally in your browser.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="section-label">paste your json</div>
+    <textarea id="inputText" placeholder='{"name":"John","age":30,"city":"New York"}'></textarea>
+    <div class="field-row">
+      <div class="field">
+        <label>Indent Size</label>
+        <select id="indentSelect">
+          <option value="2" selected>2 spaces</option>
+          <option value="4">4 spaces</option>
+          <option value="tab">Tab</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="formatJSON()">Format & Validate</button>
+      <button class="btn ghost" onclick="minifyJSON()">Minify</button>
+      <button class="btn ghost" onclick="clearAll()">✕ Clear</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="section-label">output</div>
+    <textarea id="outputText" placeholder="Formatted JSON will appear here..." readonly style="min-height:240px;"></textarea>
+    <div class="btn-row">
+      <button class="btn ghost" onclick="copyOutput()">Copy Output</button>
+    </div>
+    <div id="statusArea"></div>
+  </div>
+
+  <!-- ===== INFORMATIONAL CONTENT (~850 words) ===== -->
+  <hr class="divider">
+
+  <div class="content-block">
+    <h2>What Is JSON, and Why Does It Need Formatting?</h2>
+    <p>JSON (short for JavaScript Object Notation) is a lightweight data format used to store and exchange structured information between systems. It's the format behind most modern web APIs, configuration files, and data exports — when an app on your phone talks to a server, there's a very good chance the data going back and forth is JSON underneath.</p>
+    <p>The problem is that JSON, especially when it comes from an API response or a minified configuration file, is often delivered as one long unbroken line of text with no spacing or line breaks at all. This makes it technically valid but practically unreadable to a human trying to understand its structure. A JSON formatter takes that compressed, unreadable string and adds proper indentation and line breaks, organizing it into a clear, nested structure that's easy to read and easy to spot mistakes in.</p>
+
+    <h3 class="sub">Understanding JSON Structure</h3>
+    <p>JSON data is built from a small set of building blocks. <strong>Objects</strong> are collections of key-value pairs wrapped in curly braces, like <code>{"name": "John"}</code>. <strong>Arrays</strong> are ordered lists of values wrapped in square brackets, like <code>[1, 2, 3]</code>. Values themselves can be strings (in double quotes), numbers, booleans (true or false), null, or even nested objects and arrays — which is what allows JSON to represent deeply structured, hierarchical data, like a list of users where each user has their own nested address object.</p>
+    <p>This nesting is exactly what makes unformatted JSON so hard to read manually — without indentation showing you which closing brace matches which opening brace, it's nearly impossible to mentally track how deeply nested you are at any given point in a large JSON document.</p>
+
+    <h3 class="sub">What "Validating" Actually Means</h3>
+    <p>JSON has strict syntax rules: every string must use double quotes (not single quotes), there can be no trailing comma after the last item in an object or array, every opening brace or bracket must have a matching closing one, and keys must always be strings. A single missing comma, an extra comma, or a mismatched bracket anywhere in a large JSON document will make the entire thing invalid — and most systems that consume JSON will reject it entirely rather than trying to guess what you meant.</p>
+    <p>When you run your JSON through this tool, it doesn't just add spacing — it actually parses the JSON using your browser's built-in JSON engine. If anything in your JSON violates the syntax rules, the tool will tell you so directly, often pointing to roughly where in the text the problem occurred, rather than silently producing broken or incomplete output.</p>
+
+    <h3 class="sub">Formatting vs. Minifying</h3>
+    <p>Formatting (sometimes called "beautifying" or "pretty-printing") adds indentation and line breaks to make JSON easy for a human to read and edit. This is what you want when debugging, reviewing an API response, or editing a configuration file by hand. Minifying does the opposite — it strips out every unnecessary space and line break, compressing the JSON down to the smallest possible size. This matters in production systems where every byte transmitted over a network adds up, especially for high-traffic APIs serving the same JSON structure millions of times a day. You'll typically format JSON while working with it, then minify it again before it goes back into a live system.</p>
+
+    <h3 class="sub">Common JSON Mistakes This Tool Catches</h3>
+    <p>Some of the most frequent JSON errors include using single quotes instead of double quotes around strings, leaving a trailing comma after the last item in a list (a habit carried over from some programming languages that do allow it), forgetting to close a brace or bracket, and using unquoted keys (valid in plain JavaScript objects, but not in strict JSON). Running your data through a formatter and validator like this one catches all of these issues immediately, rather than letting them surface later as a confusing error somewhere else in your application.</p>
+
+    <h3 class="sub">How to Use This Tool</h3>
+    <p>Paste your JSON — however messy, minified, or oddly formatted — into the input box. Choose your preferred indentation style (2 spaces, 4 spaces, or tabs), then click "Format & Validate." If your JSON is valid, a clean, properly indented version will appear in the output box. If it's invalid, you'll see a clear error message describing what went wrong instead. Click "Minify" if you'd rather compress your JSON down to a single compact line. Click "Copy Output" to copy the result to your clipboard for pasting into your code editor, config file, or wherever you need it.</p>
+  </div>
+
+  <div class="content-block">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Is my JSON data uploaded anywhere?</h3>
+        <p>No. All formatting and validation happens locally in your browser using built-in JavaScript functions. Nothing is sent to a server.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why does my JSON say it's invalid even though it looks correct?</h3>
+        <p>Common causes include single quotes instead of double quotes, a trailing comma after the last item, or unquoted object keys — all of which are invalid in strict JSON even though they're sometimes allowed in plain JavaScript.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What's the difference between formatting and minifying?</h3>
+        <p>Formatting adds spacing and line breaks for readability. Minifying removes all unnecessary spacing to make the file as small as possible.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can this tool handle very large JSON files?</h3>
+        <p>Yes, though extremely large files (many megabytes) may take a moment longer to process since everything runs using your browser's own processing power.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Omni Web Tools<br>Free · No signup · No tracking</footer>
+<div class="toast" id="copyToast">✓ Copied to clipboard</div>
+
+<script>
+  function formatJSON(){
+    const input = document.getElementById('inputText').value;
+    const indentSelect = document.getElementById('indentSelect').value;
+    const indent = indentSelect === 'tab' ? '\t' : parseInt(indentSelect);
+    const status = document.getElementById('statusArea');
+
+    try {
+      const parsed = JSON.parse(input);
+      const formatted = JSON.stringify(parsed, null, indent);
+      document.getElementById('outputText').value = formatted;
+      status.innerHTML = `<div class="result-box" style="margin-top:14px;"><div class="label">Valid JSON</div><div style="font-family:var(--mono);font-size:0.85rem;">Your JSON was successfully parsed and formatted.</div></div>`;
+    } catch(e) {
+      document.getElementById('outputText').value = '';
+      status.innerHTML = `<div class="result-box error" style="margin-top:14px;"><div class="label">Invalid JSON</div><div style="font-family:var(--mono);font-size:0.85rem;">${e.message}</div></div>`;
+    }
+  }
+
+  function minifyJSON(){
+    const input = document.getElementById('inputText').value;
+    const status = document.getElementById('statusArea');
+    try {
+      const parsed = JSON.parse(input);
+      document.getElementById('outputText').value = JSON.stringify(parsed);
+      status.innerHTML = `<div class="result-box" style="margin-top:14px;"><div class="label">Valid JSON</div><div style="font-family:var(--mono);font-size:0.85rem;">Minified successfully.</div></div>`;
+    } catch(e) {
+      document.getElementById('outputText').value = '';
+      status.innerHTML = `<div class="result-box error" style="margin-top:14px;"><div class="label">Invalid JSON</div><div style="font-family:var(--mono);font-size:0.85rem;">${e.message}</div></div>`;
+    }
+  }
+
+  function clearAll(){
+    document.getElementById('inputText').value = '';
+    document.getElementById('outputText').value = '';
+    document.getElementById('statusArea').innerHTML = '';
+  }
+
+  function copyOutput(){
+    const out = document.getElementById('outputText').value;
+    if(!out) return;
+    navigator.clipboard.writeText(out).then(() => {
+      const toast = document.getElementById('copyToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+  }
+</script>
+</body>
+</html>

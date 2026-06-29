@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 Encoder – Omni Web Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>Omni Web Tools</a>
+  <a class="back-link" href="index.html">← All Tools</a>
+</header>
+
+<div class="hero">
+  <span class="tag">Dev Tool</span>
+  <h1>Base64 Encoder.</h1>
+  <p>Encode text to Base64 or decode Base64 back to plain text — instantly, right in your browser.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="section-label">input</div>
+    <textarea id="inputText" placeholder="Type or paste text or Base64 here..."></textarea>
+    <div class="btn-row">
+      <button class="btn" onclick="encode()">Encode →</button>
+      <button class="btn" onclick="decode()">Decode →</button>
+      <button class="btn ghost" onclick="clearAll()">✕ Clear</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="section-label">output</div>
+    <textarea id="outputText" placeholder="Result will appear here..." readonly></textarea>
+    <div class="btn-row">
+      <button class="btn ghost" onclick="copyOutput()">Copy Output</button>
+    </div>
+  </div>
+
+  <!-- ===== INFORMATIONAL CONTENT (~850 words) ===== -->
+  <hr class="divider">
+
+  <div class="content-block">
+    <h2>What Is Base64 Encoding?</h2>
+    <p>Base64 is a method of converting binary data, or any text, into a string made up only of letters, numbers, and a small set of safe symbols (specifically A–Z, a–z, 0–9, plus "+", "/", and "=" for padding). It exists because many systems — particularly older ones, or ones built around plain text — can't safely handle raw binary data or certain special characters directly. Base64 sidesteps that problem by representing any data using only characters guaranteed to be safe everywhere.</p>
+    <p>It's worth being clear about one important point: Base64 is encoding, not encryption. It doesn't protect or hide information in any meaningful security sense — anyone can decode a Base64 string back to its original form just as easily as it was encoded, with no password or key required. Its purpose is compatibility, not secrecy.</p>
+
+    <h3 class="sub">How Base64 Actually Works</h3>
+    <p>Base64 takes the underlying binary data of whatever you're encoding and regroups it into chunks of 6 bits each, rather than the usual 8 bits per byte. Each possible 6-bit value (there are 64 of them, which is where the name comes from) maps to one specific character from a defined set of 64 safe characters. This is why a Base64-encoded string is always somewhat longer than the original — roughly 33% longer — since it takes more characters from this smaller alphabet to represent the same amount of original information.</p>
+    <p>You'll often see one or two equals signs at the very end of a Base64 string. These are padding characters, added when the original data doesn't divide evenly into the 6-bit groups Base64 requires, ensuring the encoded output always has a consistent, predictable structure.</p>
+
+    <h3 class="sub">Where Base64 Actually Gets Used</h3>
+    <p>Email systems use Base64 extensively to safely transmit attachments and embedded images, since core email protocols were originally designed only for plain text. Web developers sometimes embed small images directly inside HTML or CSS files using Base64, avoiding a separate file request for very small icons or graphics. APIs that need to transmit binary data — like an image or a file — inside a JSON payload (which is fundamentally a text format) commonly Base64-encode that binary data first, since JSON can't natively hold raw binary content. Basic HTTP authentication headers use Base64 to encode a username and password combination before sending it as part of a request, though this should always be paired with HTTPS encryption, since Base64 alone provides no actual protection.</p>
+    <p>Configuration files and environment variables in some systems also store sensitive-looking values in Base64 form, less for security and more because it avoids issues with special characters that might otherwise break the file's formatting.</p>
+
+    <h3 class="sub">Why Base64 Is Not Encryption</h3>
+    <p>This point is worth repeating because it's a common and risky misunderstanding. Encryption requires a secret key to reverse — without that key, the original data is genuinely inaccessible, even to someone who has the encrypted version. Base64 requires no key at all; the exact same publicly known character mapping is used by literally every Base64 decoder in existence. If you see a password, API key, or other sensitive value Base64-encoded somewhere, treat it as exactly as exposed as if it were written in plain text, because functionally, it is.</p>
+
+    <h3 class="sub">How to Use This Tool</h3>
+    <p>To encode text into Base64, type or paste your text into the input box and click "Encode." The Base64 result will appear instantly in the output box, ready to copy and use wherever you need it. To decode a Base64 string back into its original text, paste the encoded string into the input box and click "Decode" instead. Click "Copy Output" to copy the result to your clipboard.</p>
+    <p>If you try to decode something that isn't actually valid Base64 — for example, regular text that happens to not be encoded at all — the tool will let you know the input couldn't be decoded rather than producing incorrect or garbled output.</p>
+
+    <h3 class="sub">A Note on Privacy</h3>
+    <p>This tool uses your browser's own built-in Base64 encoding and decoding functions, so the conversion happens instantly and entirely on your device. No text is ever transmitted to an external server during the process, which makes it safe to use even with content you wouldn't want passing through a third party — keeping in mind, of course, that Base64 itself offers no confidentiality, so it shouldn't be relied on to actually protect sensitive information from anyone who might intentionally try to decode it.</p>
+  </div>
+
+  <div class="content-block">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Is Base64 the same as encryption?</h3>
+        <p>No. Base64 is just an encoding method with no secret key — anyone can decode it instantly. It should never be used as a substitute for actual encryption.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why is my encoded text longer than the original?</h3>
+        <p>Base64 represents data using a smaller set of safe characters, which requires roughly 33% more characters than the original to represent the same information.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What do the equals signs at the end mean?</h3>
+        <p>They're padding characters added when the original data doesn't divide evenly into the chunks Base64 requires, ensuring consistent output structure.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is my text stored or sent anywhere?</h3>
+        <p>No. Encoding and decoding both happen instantly in your browser using built-in functions. Nothing is sent to a server.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Omni Web Tools<br>Free · No signup · No tracking</footer>
+<div class="toast" id="copyToast">✓ Copied to clipboard</div>
+
+<script>
+  function encode(){
+    const input = document.getElementById('inputText').value;
+    try {
+      document.getElementById('outputText').value = btoa(unescape(encodeURIComponent(input)));
+    } catch(e) {
+      document.getElementById('outputText').value = 'Error encoding text.';
+    }
+  }
+
+  function decode(){
+    const input = document.getElementById('inputText').value;
+    try {
+      document.getElementById('outputText').value = decodeURIComponent(escape(atob(input)));
+    } catch(e) {
+      document.getElementById('outputText').value = 'Error: invalid Base64 input.';
+    }
+  }
+
+  function clearAll(){
+    document.getElementById('inputText').value = '';
+    document.getElementById('outputText').value = '';
+  }
+
+  function copyOutput(){
+    const out = document.getElementById('outputText').value;
+    if(!out) return;
+    navigator.clipboard.writeText(out).then(() => {
+      const toast = document.getElementById('copyToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+  }
+</script>
+</body>
+</html>

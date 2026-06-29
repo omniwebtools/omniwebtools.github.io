@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Counter – Omni Web Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>Omni Web Tools</a>
+  <a class="back-link" href="index.html">← All Tools</a>
+</header>
+
+<div class="hero">
+  <span class="tag">Text Tool</span>
+  <h1>Word Counter.</h1>
+  <p>Count words, characters, sentences, paragraphs and estimated reading time — updates live as you type.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="section-label">your text</div>
+    <textarea id="inputText" placeholder="Start typing or paste your text here..."></textarea>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="section-label">live stats</div>
+    <div class="tools-grid">
+      <div class="result-box"><div class="label">Words</div><div class="big" id="words">0</div></div>
+      <div class="result-box"><div class="label">Characters</div><div class="big" id="chars">0</div></div>
+      <div class="result-box"><div class="label">No Spaces</div><div class="big" id="charsNoSpace">0</div></div>
+      <div class="result-box"><div class="label">Sentences</div><div class="big" id="sentences">0</div></div>
+      <div class="result-box"><div class="label">Paragraphs</div><div class="big" id="paragraphs">0</div></div>
+      <div class="result-box"><div class="label">Reading Time</div><div class="big" id="readTime">0 sec</div></div>
+    </div>
+  </div>
+
+  <!-- ===== INFORMATIONAL CONTENT (~850 words) ===== -->
+  <hr class="divider">
+
+  <div class="content-block">
+    <h2>What Is a Word Counter?</h2>
+    <p>A word counter is exactly what it sounds like — a tool that counts the words in a piece of text. But the useful ones, like this one, go further than that single number. This tool also tracks total characters, characters without spaces, sentences, paragraphs, and gives you an estimate of how long the text would take to read out loud.</p>
+    <p>It's one of those tools that seems almost too simple to need, until you're staring at a 500-word essay limit with no easy way to check whether you've gone over, or you're trying to fit a tweet or product description inside a strict character cap. In those moments, a fast, accurate counter saves you from manually counting or guessing.</p>
+    <p>This tool works entirely inside your browser. As you type or paste text into the box, every number updates instantly — there's no "calculate" button to click and no waiting. Nothing you type is ever sent anywhere or stored after you leave the page.</p>
+
+    <h3 class="sub">Why Word and Character Limits Exist</h3>
+    <p>Almost every form of writing has some kind of length constraint, even if it's not always obvious. Academic essays often specify a minimum or maximum word count to make sure students develop an idea fully without rambling. Social media platforms enforce strict character limits to keep posts skimmable and the platform's design consistent. Meta descriptions for websites are typically capped around 150–160 characters because that's roughly what fits in a search engine results page before getting cut off. Resumes and cover letters are expected to stay within a page or two, which usually translates to a rough word count target. Knowing exactly where you stand against these limits, in real time, makes editing far less stressful.</p>
+
+    <h3 class="sub">How Each Stat Is Calculated</h3>
+    <p><strong>Words</strong> are counted by splitting your text wherever there's a space or line break, then counting the resulting chunks. This means a single very long string with no spaces would be counted as one word, just as it should be. <strong>Characters</strong> counts every single character in your text, including spaces, punctuation, and line breaks. <strong>Characters without spaces</strong> gives you the same count but with all whitespace removed, which is the number most character-limit systems (like SMS messages or certain form fields) actually use.</p>
+    <p><strong>Sentences</strong> are counted by looking for groups of text that end in a period, question mark, or exclamation mark. This works well for standard writing, though it can occasionally miscount abbreviations like "Dr." or "e.g." as sentence endings — something to keep in mind if your text uses a lot of them. <strong>Paragraphs</strong> are counted as blocks of text separated by at least one blank line, which mirrors how most writing and document software defines a paragraph break.</p>
+    <p><strong>Reading time</strong> is estimated using an average adult silent reading speed of roughly 200 words per minute, a figure widely used by publishing platforms like Medium. This is, of course, only an estimate — a technical document full of unfamiliar terms will take longer to read than a casual blog post with the same word count, and reading speed varies a lot between people.</p>
+
+    <h3 class="sub">Who Uses a Word Counter</h3>
+    <p>Students rely on it constantly to make sure essays and assignments meet a teacher's word count requirement before submission. Content writers and bloggers use it to check that an article hits a target length for SEO purposes, since search engines tend to favor more comprehensive content for certain types of queries. Copywriters use it to keep ad copy, headlines, and product descriptions inside the strict character limits platforms like Google Ads or Amazon enforce. Social media managers use it to draft posts that fit comfortably within a platform's character cap without needing to count manually. Translators and editors use it to compare the length of a translated text against the original, since some languages naturally run longer or shorter than others for the same meaning. Public speakers and podcasters use the reading time estimate to gauge roughly how long a script will take to deliver out loud.</p>
+
+    <h3 class="sub">Getting Accurate Results</h3>
+    <p>For the most reliable counts, paste your final draft rather than typing directly if you're working from another document — this avoids any accidental formatting differences. If you're checking against a strict platform limit (like Twitter's character count), keep in mind that some platforms count certain characters, like emoji or links, differently than a simple character counter does. When in doubt, treat this tool's numbers as a strong general guide and double-check against the platform's own counter for anything mission-critical, like a final ad submission.</p>
+  </div>
+
+  <div class="content-block">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Does this tool save my text?</h3>
+        <p>No. Everything is calculated instantly in your browser. Your text is never sent anywhere or stored.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How accurate is the reading time estimate?</h3>
+        <p>It's based on an average reading speed of 200 words per minute. Actual reading time will vary depending on the reader and how complex the text is.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why does my sentence count seem slightly off?</h3>
+        <p>The tool counts sentence-ending punctuation (periods, question marks, exclamation marks). Abbreviations like "Dr." or "etc." can occasionally be miscounted as sentence breaks.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I count text from a Word document or PDF?</h3>
+        <p>Yes — just copy the text from your document and paste it into the box. The counter works the same way regardless of where the text came from.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Omni Web Tools<br>Free · No signup · No tracking</footer>
+
+<script>
+  const inputText = document.getElementById('inputText');
+  inputText.addEventListener('input', updateStats);
+
+  function updateStats(){
+    const t = inputText.value;
+    const trimmed = t.trim();
+
+    const wordCount = trimmed === '' ? 0 : trimmed.split(/\s+/).length;
+    const charCount = t.length;
+    const charNoSpace = t.replace(/\s/g, '').length;
+    const sentenceCount = trimmed === '' ? 0 : (trimmed.match(/[^.!?]*[.!?]+/g) || []).length || (trimmed ? 1 : 0);
+    const paragraphCount = trimmed === '' ? 0 : trimmed.split(/\n\s*\n/).filter(p => p.trim() !== '').length;
+    const readSeconds = Math.ceil((wordCount / 200) * 60);
+
+    document.getElementById('words').textContent = wordCount;
+    document.getElementById('chars').textContent = charCount;
+    document.getElementById('charsNoSpace').textContent = charNoSpace;
+    document.getElementById('sentences').textContent = sentenceCount;
+    document.getElementById('paragraphs').textContent = paragraphCount;
+
+    let timeLabel;
+    if (readSeconds < 60) timeLabel = readSeconds + ' sec';
+    else timeLabel = Math.floor(readSeconds/60) + ' min ' + (readSeconds%60) + ' sec';
+    document.getElementById('readTime').textContent = wordCount === 0 ? '0 sec' : timeLabel;
+  }
+</script>
+</body>
+</html>

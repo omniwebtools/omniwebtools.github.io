@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M4A to MP3 – Omni Web Tools</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.0/lame.min.js"></script>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html"><span class="dot"></span>Omni Web Tools</a>
+  <a class="back-link" href="index.html">← All Tools</a>
+</header>
+
+<div class="hero">
+  <span class="tag">Audio Tool</span>
+  <h1>M4A to MP3.</h1>
+  <p>Convert M4A audio files to MP3 directly in your browser. No upload to any server — 100% private and free.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="section-label">upload audio</div>
+    <div class="dropzone" id="dropzone">
+      <div class="dz-icon">🎵</div>
+      <p><strong>Click to choose a file</strong> or drag and drop it here</p>
+      <p style="margin-top:6px;font-size:0.75rem;">Supports M4A (and most other browser-playable audio)</p>
+      <input type="file" id="fileInput" accept="audio/*,.m4a">
+    </div>
+
+    <div id="fileArea" style="margin-top:18px;display:none;">
+      <div class="stats-row" id="fileInfo"></div>
+      <audio id="audioPreview" controls style="width:100%;margin-top:12px;"></audio>
+    </div>
+
+    <div class="field-row" id="convertOptions" style="display:none;">
+      <div class="field">
+        <label>MP3 Bitrate</label>
+        <select id="bitrateSelect">
+          <option value="128">128 kbps (smaller file)</option>
+          <option value="192" selected>192 kbps (balanced)</option>
+          <option value="320">320 kbps (best quality)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-row" id="actionRow" style="display:none;">
+      <button class="btn" onclick="convertAudio()" id="convertBtn">Convert to MP3</button>
+      <button class="btn ghost" onclick="resetTool()">✕ Start Over</button>
+    </div>
+
+    <div id="progressArea"></div>
+    <div id="downloadArea"></div>
+  </div>
+
+  <!-- ===== INFORMATIONAL CONTENT (~850 words) ===== -->
+  <hr class="divider">
+
+  <div class="content-block">
+    <h2>What Is This Tool and Why Convert M4A to MP3?</h2>
+    <p>M4A is an audio format most commonly produced by Apple devices and software — voice memos recorded on an iPhone, songs purchased through iTunes, and audio exported from Apple's editing tools all tend to default to M4A. It's a perfectly good format technically, often offering better compression than older formats at a similar quality, but it isn't universally supported. Plenty of older devices, car stereos, some Android apps, and various pieces of software either don't support M4A at all or handle it inconsistently.</p>
+    <p>MP3, by contrast, is about as close to a universal audio standard as exists. It plays on virtually every device, app, and piece of software made in the last twenty-five years, regardless of brand or operating system. Converting an M4A file to MP3 trades a small amount of audio efficiency for near-total compatibility — which is usually exactly the tradeoff you want when you need to share a file with someone else, upload it somewhere with format restrictions, or play it on older hardware.</p>
+
+    <h3 class="sub">How This Tool Actually Works</h3>
+    <p>Audio conversion normally happens on a server: you upload your file, a powerful program decodes and re-encodes it, and you download the result. That works, but it means your audio — which might be a private voice memo, a personal recording, or anything else you'd rather not hand to a third party — travels across the internet and sits on someone else's server, even briefly.</p>
+    <p>This tool takes a different approach. It uses your browser's built-in Web Audio API to decode the M4A file directly on your device, the same underlying technology your browser already uses to play audio and video. Once decoded into raw audio data, an in-browser MP3 encoder re-encodes that data into a proper MP3 file — all without your file ever leaving your computer or phone. The tradeoff is that your own device does the processing work instead of a remote server, so very long audio files may take a bit longer to convert, particularly on older or less powerful devices.</p>
+
+    <h3 class="sub">Understanding MP3 Bitrate</h3>
+    <p>Bitrate measures how much data is used to represent each second of audio, and it directly controls the balance between file size and sound quality. A higher bitrate preserves more detail in the original recording but produces a larger file; a lower bitrate shrinks the file but can introduce audible compression artifacts, especially in complex or layered audio like music with many instruments.</p>
+    <p><strong>128 kbps</strong> is generally sufficient for spoken word content like podcasts, voice memos, audiobooks, or lectures, where extreme audio fidelity matters less than keeping the file small and easy to share. <strong>192 kbps</strong> is a solid middle-ground choice for most music, offering noticeably better detail than 128 kbps without ballooning the file size. <strong>320 kbps</strong> is the highest quality standard MP3 supports, recommended when audio fidelity is the priority — for example, archiving a high-quality music recording — at the cost of a meaningfully larger file.</p>
+
+    <h3 class="sub">How to Use This Tool</h3>
+    <p>Click the upload box, or drag and drop your M4A file directly onto it. Once uploaded, your browser will decode the audio in the background — you'll see an audio player appear so you can preview the file while this happens. Choose your preferred MP3 bitrate from the dropdown, then click "Convert to MP3." A progress indicator will appear while the conversion runs; once it's done, you'll see the final file size and a download button. Click "Start Over" if you want to convert a different file.</p>
+
+    <h3 class="sub">When Conversion Might Take Longer or Fail</h3>
+    <p>Very long audio files — think full albums or multi-hour recordings — naturally take longer to process since your device is handling all the decoding and encoding work itself, rather than a powerful remote server. If a file fails to decode, it's most often because the browser doesn't recognize the specific audio codec used inside that particular M4A file (M4A is technically a container format that can hold different types of audio data inside it). In that case, trying a different browser, or re-exporting the original file from whatever app created it, usually resolves the issue.</p>
+
+    <h3 class="sub">Privacy by Design</h3>
+    <p>Because the entire conversion process — decoding, processing, and encoding — happens inside your browser using your device's own resources, there is no point at which your audio file is transmitted over the internet or stored on any server. This makes the tool suitable even for sensitive recordings like personal voice memos, confidential meeting recordings, or anything else you wouldn't want passing through a third party.</p>
+  </div>
+
+  <div class="content-block">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Why convert M4A to MP3?</h3>
+        <p>MP3 is one of the most widely supported audio formats, playable on virtually every device and app, while M4A (common on Apple devices) isn't always supported elsewhere.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is my audio file uploaded to a server?</h3>
+        <p>No. The entire conversion happens inside your browser on your own device. Nothing is uploaded.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is there a file size or length limit?</h3>
+        <p>There's no strict limit, but very long audio files will take more time and memory to process since your device is doing all the work.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Which bitrate should I choose?</h3>
+        <p>128 kbps works well for spoken content like voice memos or podcasts. 192 kbps suits most music. 320 kbps gives the best quality for archiving or high-fidelity listening.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Omni Web Tools<br>Free · No signup · No tracking</footer>
+
+<script>
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  let audioBuffer = null;
+  let currentFileName = 'audio';
+
+  dropzone.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+  dropzone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropzone.classList.remove('dragover');
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', e => {
+    if (e.target.files.length) handleFile(e.target.files[0]);
+  });
+
+  function handleFile(file){
+    currentFileName = file.name.replace(/\.[^/.]+$/, '');
+    document.getElementById('audioPreview').src = URL.createObjectURL(file);
+    document.getElementById('fileInfo').innerHTML =
+      `<span><b>${file.name}</b></span><span>${(file.size/1024/1024).toFixed(2)} MB</span>`;
+    document.getElementById('fileArea').style.display = 'block';
+    document.getElementById('convertOptions').style.display = 'flex';
+    document.getElementById('actionRow').style.display = 'flex';
+    document.getElementById('downloadArea').innerHTML = '';
+    document.getElementById('progressArea').innerHTML = '';
+
+    const reader = new FileReader();
+    reader.onload = async e => {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioCtx();
+        audioBuffer = await ctx.decodeAudioData(e.target.result);
+      } catch(err) {
+        document.getElementById('progressArea').innerHTML =
+          `<div class="result-box error"><div class="label">Could not decode this file</div><div style="font-family:var(--mono);font-size:0.85rem;">Your browser may not support this audio format. Try a different file.</div></div>`;
+        audioBuffer = null;
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  function convertAudio(){
+    if (!audioBuffer) {
+      document.getElementById('progressArea').innerHTML =
+        `<div class="result-box" style="margin-top:14px;"><div class="label">Still decoding...</div><div style="font-family:var(--mono);font-size:0.85rem;">Please wait a moment and try again.</div></div>`;
+      return;
+    }
+
+    document.getElementById('convertBtn').disabled = true;
+    document.getElementById('progressArea').innerHTML =
+      `<div class="result-box" style="margin-top:14px;"><div class="label">Converting...</div></div>`;
+
+    setTimeout(() => {
+      try {
+        const bitrate = parseInt(document.getElementById('bitrateSelect').value);
+        const channels = audioBuffer.numberOfChannels > 1 ? 2 : 1;
+        const sampleRate = audioBuffer.sampleRate;
+
+        const left = audioBuffer.getChannelData(0);
+        const right = channels === 2 ? audioBuffer.getChannelData(1) : left;
+
+        const mp3encoder = new lamejs.Mp3Encoder(channels, sampleRate, bitrate);
+        const sampleBlockSize = 1152;
+        const mp3Data = [];
+
+        const leftInt16 = floatTo16BitPCM(left);
+        const rightInt16 = channels === 2 ? floatTo16BitPCM(right) : null;
+
+        for (let i = 0; i < leftInt16.length; i += sampleBlockSize) {
+          const leftChunk = leftInt16.subarray(i, i + sampleBlockSize);
+          let mp3buf;
+          if (channels === 2) {
+            const rightChunk = rightInt16.subarray(i, i + sampleBlockSize);
+            mp3buf = mp3encoder.encodeBuffer(leftChunk, rightChunk);
+          } else {
+            mp3buf = mp3encoder.encodeBuffer(leftChunk);
+          }
+          if (mp3buf.length > 0) mp3Data.push(new Int8Array(mp3buf));
+        }
+        const finalBuf = mp3encoder.flush();
+        if (finalBuf.length > 0) mp3Data.push(new Int8Array(finalBuf));
+
+        const blob = new Blob(mp3Data, { type: 'audio/mp3' });
+        const url = URL.createObjectURL(blob);
+
+        document.getElementById('progressArea').innerHTML = '';
+        document.getElementById('downloadArea').innerHTML = `
+          <div class="result-box" style="margin-top:16px;">
+            <div class="label">Done — MP3 size: ${(blob.size/1024/1024).toFixed(2)} MB</div>
+            <a class="btn" style="margin-top:10px;" href="${url}" download="${currentFileName}.mp3">⬇ Download MP3</a>
+          </div>`;
+      } catch(err) {
+        document.getElementById('progressArea').innerHTML =
+          `<div class="result-box error"><div class="label">Conversion failed</div><div style="font-family:var(--mono);font-size:0.85rem;">${err.message}</div></div>`;
+      }
+      document.getElementById('convertBtn').disabled = false;
+    }, 50);
+  }
+
+  function floatTo16BitPCM(floatArray){
+    const out = new Int16Array(floatArray.length);
+    for (let i = 0; i < floatArray.length; i++) {
+      let s = Math.max(-1, Math.min(1, floatArray[i]));
+      out[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+    }
+    return out;
+  }
+
+  function resetTool(){
+    audioBuffer = null;
+    fileInput.value = '';
+    document.getElementById('fileArea').style.display = 'none';
+    document.getElementById('convertOptions').style.display = 'none';
+    document.getElementById('actionRow').style.display = 'none';
+    document.getElementById('progressArea').innerHTML = '';
+    document.getElementById('downloadArea').innerHTML = '';
+  }
+</script>
+</body>
+</html>
